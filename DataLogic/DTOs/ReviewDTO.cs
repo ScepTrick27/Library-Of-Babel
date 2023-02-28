@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLogic
+namespace DataLogic.DTOs
 {
     public class ReviewDTO
     {

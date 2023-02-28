@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLogic
+namespace DataLogic.DTOs
 {
     public class BookGenreDTO
     {
@@ -18,7 +18,7 @@ namespace DataLogic
         public BookGenreDTO(SqlDataReader dr)
         {
             BookDTO = new BookDTO(dr);
-            GenreDTO= new GenreDTO(dr);
+            GenreDTO = new GenreDTO(dr);
         }
 
         public BookDTO BookDTO { get; set; }

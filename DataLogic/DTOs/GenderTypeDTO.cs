@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLogic
+namespace DataLogic.DTOs
 {
     public class GenderTypeDTO
     {
-        public GenderTypeDTO(SqlDataReader dr) 
+        public GenderTypeDTO(SqlDataReader dr)
         {
             GenderTypeId = Convert.ToInt32(dr["gender_id"]);
             GenderTypeName = dr["gender_name"].ToString();
         }
 
         public int GenderTypeId { get; set; }
-        public string GenderTypeName { get; set;}
+        public string GenderTypeName { get; set; }
     }
 }

@@ -1,0 +1,20 @@
+﻿@page
+@using Logic;
+@using DataLogic;
+@model Library_Of_Babel_Web_Application.Pages.BookPageModel
+@{
+}
+
+<div class="product-overview">
+    @foreach (Book book in Model.books)
+    {
+        <div class="product-card">
+            <img src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
+            <span class="name">
+                @book.BookTitle
+            </span>
+            <span class="unit">@book.BookIsbn </span>
+        </div>
+    }
+</div>
+

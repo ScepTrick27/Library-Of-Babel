@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace DataLogic
+namespace DataLogic.DTOs
 {
     public class UserDTO
     {
@@ -17,7 +17,7 @@ namespace DataLogic
             Description = description;
         }
 
-        public UserDTO(SqlDataReader dr) 
+        public UserDTO(SqlDataReader dr)
         {
             PersonId = Convert.ToInt32(dr["person_id"]);
             Email = dr["email"].ToString();

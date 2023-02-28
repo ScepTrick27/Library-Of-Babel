@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLogic
+namespace DataLogic.DTOs
 {
     public class GenreDTO
     {
-        public GenreDTO(SqlDataReader dr) 
+        public GenreDTO(SqlDataReader dr)
         {
             GenreId = Convert.ToInt32(dr["genre_id"]);
             GenreName = dr["genre_name"].ToString();

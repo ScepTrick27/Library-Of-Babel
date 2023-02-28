@@ -7,4 +7,9 @@
     <RootNamespace>Library_Of_Babel_Web_Application</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataLogic\DataLogic.csproj" />
+    <ProjectReference Include="..\Logic\Logic.csproj" />
+  </ItemGroup>
+
 </Project>
