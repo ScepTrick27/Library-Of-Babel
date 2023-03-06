@@ -9,6 +9,11 @@ namespace DataLogic.DTOs
 {
     public class GenderTypeDTO
     {
+        public GenderTypeDTO(int genderTypeId, string genderTypeName) 
+        {
+            GenderTypeId= genderTypeId;
+            GenderTypeName= genderTypeName;
+        }
         public GenderTypeDTO(SqlDataReader dr)
         {
             GenderTypeId = Convert.ToInt32(dr["gender_id"]);

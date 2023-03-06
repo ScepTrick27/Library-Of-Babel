@@ -10,13 +10,12 @@ namespace DataLogic.DTOs
 {
     public class BookDTO
     {
-        public BookDTO(string bookTitle, string bookDescription, string bookAuthor, DateTime bookPublishDate, string bookIsbn, byte[] bookImage)
+        public BookDTO(string bookTitle, string bookDescription, string bookAuthor, DateTime bookPublishDate, byte[] bookImage)
         {
             BookTitle = bookTitle;
             BookDescription = bookDescription;
             BookAuthor = bookAuthor;
             BookPublishDate = bookPublishDate;
-            BookIsbn = bookIsbn;
             BookImage = bookImage;
         }
 
@@ -27,7 +26,6 @@ namespace DataLogic.DTOs
             BookDescription = dr["book_description"].ToString();
             BookAuthor = dr["book_author"].ToString();
             BookPublishDate = Convert.ToDateTime(dr["book_publish_date"]);
-            BookIsbn = dr["book_isbn"].ToString();
             BookImage = (byte[])dr["book_photo"];
         }
 
@@ -36,7 +34,6 @@ namespace DataLogic.DTOs
         public string BookDescription { get; set; }
         public string BookAuthor { get; set; }
         public DateTime BookPublishDate { get; set; }
-        public string BookIsbn { get; set; }
         public byte[] BookImage { get; set; }
     }
 }

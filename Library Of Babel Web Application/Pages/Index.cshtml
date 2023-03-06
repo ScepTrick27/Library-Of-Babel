@@ -1,10 +1,18 @@
 ﻿@page
 @model IndexModel
+@using Logic;
 @{
-    ViewData["Title"] = "Home page";
+    <link href="~/css/Style.css" rel="stylesheet" type="text/css" />
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="parent">
+    @foreach (Book book in Model.books)
+    {
+            <div class="div1">
+                <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
+                <span class="name">
+                @book.BookTitle
+                </span>
+            </div>
+    }
 </div>

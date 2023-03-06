@@ -31,38 +31,60 @@ namespace Library_Of_Babel_Destop_Application
 
             foreach (Book b in bookManager.GetAllBooks())
             {
-                listBox1.Items.Add(b);
+                lbBooks.Items.Add(b);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAddPhoto_Click(object sender, EventArgs e)
         {
-            string filename;
             OpenFileDialog sfd = new OpenFileDialog();
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                string path = System.IO.Path.GetFullPath(sfd.FileName);
+                string path = Path.GetFullPath(sfd.FileName);
                 using FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 using MemoryStream memoryStream = new MemoryStream();
                 fs.CopyTo(memoryStream);
-                //photo = br.ReadBytes((int)fs.Length);
                 book.BookImage = memoryStream.ToArray();
-
-                //MemoryStream stmBLOBData = new MemoryStream(photo);
-                //pictureBox1.Image = Image.FromStream(stmBLOBData);
+                lblPhotoStatus.Text = "Photo Added";
+                lblPhotoStatus.ForeColor= Color.Green;
+                MemoryStream stmBLOBData = new MemoryStream(book.BookImage);
+                pictureBox1.Image = Image.FromStream(stmBLOBData);
             }
             else { MessageBox.Show("You canceled"); }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnAddBook_Click(object sender, EventArgs e)
         {
-            bookManager.AddBook(new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, "1", book.BookImage));
+            if (!String.IsNullOrWhiteSpace(tbxTitle.Text) && !String.IsNullOrWhiteSpace(tbxDescription.Text) && !String.IsNullOrWhiteSpace(tbxAuthor.Text) && book.BookImage != null)
+            {
+                bookManager.AddBook(new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, book.BookImage));
+
+                tbxTitle.Clear();
+                tbxAuthor.Clear();
+                tbxDescription.Clear();
+                lblPhotoStatus.Text = "Please upload a photo";
+                lblPhotoStatus.ForeColor= Color.Red;
+                dtpPublishDate.Value = DateTime.Now;
+                pictureBox1.Image = null;
+
+                lbBooks.Items.Clear();
+
+                foreach (Book b in bookManager.GetAllBooks())
+                {
+                    lbBooks.Items.Add(b);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please add all the required information");
+            }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void lbBooks_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Book selectedBook = (Book)listBox1.SelectedItem;
+            Book selectedBook = (Book)lbBooks.SelectedItem;
             MemoryStream stmBLOBData = new MemoryStream(selectedBook.BookImage);
             pictureBox1.Image = Image.FromStream(stmBLOBData);
         }

@@ -15,8 +15,8 @@ namespace DataLogic.DBs
         {
             try
             {
-                const string sql = "INSERT INTO individual_book ([book_title], [book_description], [book_author], [book_publish_date], [book_isbn], [book_photo])" +
-                "VALUES (@book_title, @book_description, @book_author, @book_publish_date, @book_isbn, @book_photo)";
+                const string sql = "INSERT INTO individual_book ([book_title], [book_description], [book_author], [book_publish_date], [book_photo])" +
+                "VALUES (@book_title, @book_description, @book_author, @book_publish_date, @book_photo)";
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -25,7 +25,6 @@ namespace DataLogic.DBs
                 cmd.Parameters.AddWithValue("@book_description", bookDTO.BookDescription);
                 cmd.Parameters.AddWithValue("@book_author", bookDTO.BookAuthor);
                 cmd.Parameters.AddWithValue("@book_publish_date", bookDTO.BookPublishDate);
-                cmd.Parameters.AddWithValue("@book_isbn", bookDTO.BookIsbn);
                 cmd.Parameters.AddWithValue("@book_photo", bookDTO.BookImage);
 
                 conn.Open();

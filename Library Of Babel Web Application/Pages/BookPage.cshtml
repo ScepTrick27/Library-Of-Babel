@@ -3,18 +3,21 @@
 @using DataLogic;
 @model Library_Of_Babel_Web_Application.Pages.BookPageModel
 @{
+    <link href="~/css/Style.css" rel="stylesheet" type="text/css" />
 }
 
-<div class="product-overview">
+<div class="parent">
     @foreach (Book book in Model.books)
     {
-        <div class="product-card">
-            <img src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
+        <div class="div1">
+            <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
             <span class="name">
                 @book.BookTitle
             </span>
-            <span class="unit">@book.BookIsbn </span>
+            <span class="unit">@book.BookId </span>
         </div>
     }
 </div>
+
+
 
