@@ -32,7 +32,7 @@ namespace Logic.Classes
             this.country = country;
         }
 
-        public Person(UserDTO personDTO)
+        protected Person(UserDTO personDTO)
         {
             this.email = personDTO.Email;
             this.password = personDTO.Password;
@@ -48,7 +48,7 @@ namespace Logic.Classes
             this.country = personDTO.Country;
         }
 
-        public Person() { }
+        protected Person() { }
 
         protected int PersonId { get => personId; set => personId = value; }
         protected string Email { get => email; set => email = value; }
