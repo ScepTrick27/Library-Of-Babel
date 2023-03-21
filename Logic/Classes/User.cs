@@ -11,20 +11,18 @@ namespace Logic.Classes
     {
         private string description;
 
-        public User() { }
-
         public User(string email, string password, string firstName, string lastName, GenderType genderType, DateTime dateOfBirth, string city, string country, string description) : base(email, password, firstName, lastName, genderType, dateOfBirth, city, country)
         {
             this.description = description;
         }
 
-        public User(UserDTO userDTO)
+        public User(UserDTO userDTO) : base(userDTO)
         {
             this.email = userDTO.Email;
             this.password = userDTO.Password;
             this.firstName = userDTO.FirstName;
             this.lastName = userDTO.LastName;
-            this.genderType = new GenderType()
+            this.genderType = new GenderType(userDTO.GenderTypeDTO)
             {
                 GenderTypeId = userDTO.GenderTypeDTO.GenderTypeId,
                 GenderTypeName = userDTO.GenderTypeDTO.GenderTypeName,

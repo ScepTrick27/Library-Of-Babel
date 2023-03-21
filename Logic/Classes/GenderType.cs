@@ -28,8 +28,6 @@ namespace Logic.Classes
             return new GenderTypeDTO(GenderTypeId, GenderTypeName);
         }
 
-        public GenderType() { }
-
         public int GenderTypeId { get => genderTypeId; set => genderTypeId = value; }
         public string GenderTypeName { get => genderTypeName; set => genderTypeName = value; }
     }

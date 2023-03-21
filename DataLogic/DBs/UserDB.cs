@@ -73,7 +73,7 @@ namespace DataLogic.DBs
             {
                 conn.Close();
             }
-            return null;
+            throw new Exception();
         }
 
     }

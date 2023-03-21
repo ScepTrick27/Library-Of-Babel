@@ -38,7 +38,7 @@ namespace Logic.Classes
             this.password = personDTO.Password;
             this.firstName = personDTO.FirstName;
             this.lastName = personDTO.LastName;
-            this.genderType = new GenderType()
+            this.genderType = new GenderType(personDTO.GenderTypeDTO)
             {
                 GenderTypeId = personDTO.GenderTypeDTO.GenderTypeId,
                 GenderTypeName = personDTO.GenderTypeDTO.GenderTypeName,
@@ -47,8 +47,6 @@ namespace Logic.Classes
             this.city = personDTO.City;
             this.country = personDTO.Country;
         }
-
-        protected Person() { }
 
         protected int PersonId { get => personId; set => personId = value; }
         protected string Email { get => email; set => email = value; }
