@@ -15,7 +15,7 @@ namespace Logic.Classes
         public GenderType(GenderTypeDTO genderTypeDTO)
         {
             genderTypeId = genderTypeDTO.GenderTypeId;
-            genderTypeName= genderTypeDTO.GenderTypeName;
+            genderTypeName = genderTypeDTO.GenderTypeName;
         }
 
         public GenderType(string genderTypeName)

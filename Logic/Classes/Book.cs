@@ -11,16 +11,14 @@ namespace Logic
         private DateTime bookPublishDate;
         private byte[] bookImage;
 
-        public Book() { }
-
         public Book(BookDTO bookDTO)
         {
             bookId = bookDTO.BookId;
             bookTitle = bookDTO.BookTitle;
             bookDescription = bookDTO.BookDescription;
             bookAuthor = bookDTO.BookAuthor;
-            bookPublishDate= bookDTO.BookPublishDate;
-            bookImage= bookDTO.BookImage;
+            bookPublishDate = bookDTO.BookPublishDate;
+            bookImage = bookDTO.BookImage;
         }
 
         public Book(string bookTitle, string bookDescription, string bookAuthor, DateTime bookPublishDate, byte[] bookImage)

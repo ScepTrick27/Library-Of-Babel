@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.DTOs
 {
-    public class GenderTypeDTO
+    public struct GenderTypeDTO
     {
         public GenderTypeDTO(int genderTypeId, string genderTypeName) 
         {

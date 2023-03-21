@@ -2,7 +2,7 @@
 
 namespace DataLogic.DTOs
 {
-    public class UserDTO
+    public struct UserDTO
     {
         public UserDTO(string email, string password, string firstName, string lastName, GenderTypeDTO genderTypeDTO, DateTime dateOfBirth, string city, string country, string description)
         {

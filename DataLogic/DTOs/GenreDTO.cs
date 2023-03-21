@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.DTOs
 {
-    public class GenreDTO
+    public struct GenreDTO
     {
         public GenreDTO(SqlDataReader dr)
         {

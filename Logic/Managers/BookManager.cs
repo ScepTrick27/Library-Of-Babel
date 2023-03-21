@@ -1,10 +1,10 @@
-﻿using DataLogic.DTOs;
-using DataLogic.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLogic.DTOs;
+using DataLogic.Interfaces;
 
 namespace Logic.Managers
 {
@@ -33,6 +33,5 @@ namespace Logic.Managers
 
             return books.ToArray();
         }
-
     }
 }

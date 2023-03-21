@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.DTOs
 {
-    public class ReviewDTO
+    public struct ReviewDTO
     {
         public ReviewDTO(int rating, string? reviewName, UserDTO userDTO, BookDTO bookDTO)
         {

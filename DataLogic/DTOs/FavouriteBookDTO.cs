@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.DTOs
 {
-    public class FavouriteBookDTO
+    public struct FavouriteBookDTO
     {
         public FavouriteBookDTO(UserDTO userDTO, BookDTO bookDTO)
         {

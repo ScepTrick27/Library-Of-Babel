@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.DTOs
 {
-    public class BookDTO
+    public struct BookDTO
     {
         public BookDTO(string bookTitle, string bookDescription, string bookAuthor, DateTime bookPublishDate, byte[] bookImage)
         {

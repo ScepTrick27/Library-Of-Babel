@@ -21,8 +21,8 @@ namespace Library_Of_Babel_Destop_Application
     {
         private readonly BookManager bookManager;
         private readonly IBookDB bookDB = new BookDB();
-        private Book book = new Book();
         private List<Book> books = new List<Book>();
+        private byte[] image;
         public Form1()
         {
             InitializeComponent();
@@ -45,10 +45,10 @@ namespace Library_Of_Babel_Destop_Application
                 using FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 using MemoryStream memoryStream = new MemoryStream();
                 fs.CopyTo(memoryStream);
-                book.BookImage = memoryStream.ToArray();
+                image = memoryStream.ToArray();
                 lblPhotoStatus.Text = "Photo Added";
                 lblPhotoStatus.ForeColor= Color.Green;
-                MemoryStream stmBLOBData = new MemoryStream(book.BookImage);
+                MemoryStream stmBLOBData = new MemoryStream(image);
                 pictureBox1.Image = Image.FromStream(stmBLOBData);
             }
             else { MessageBox.Show("You canceled"); }
@@ -56,9 +56,9 @@ namespace Library_Of_Babel_Destop_Application
 
         private void btnAddBook_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(tbxTitle.Text) && !String.IsNullOrWhiteSpace(tbxDescription.Text) && !String.IsNullOrWhiteSpace(tbxAuthor.Text) && book.BookImage != null)
+            if (!String.IsNullOrWhiteSpace(tbxTitle.Text) && !String.IsNullOrWhiteSpace(tbxDescription.Text) && !String.IsNullOrWhiteSpace(tbxAuthor.Text) && image != null)
             {
-                bookManager.AddBook(new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, book.BookImage));
+                bookManager.AddBook(new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, image));
 
                 tbxTitle.Clear();
                 tbxAuthor.Clear();
