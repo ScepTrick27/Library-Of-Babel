@@ -2,17 +2,20 @@
 @model IndexModel
 @using Logic;
 @{
-    <link href="~/css/Style.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/IndexStyle.css" rel="stylesheet" type="text/css" />
+    Layout = "";
 }
 
-<div class="parent">
-    @foreach (Book book in Model.books)
+<body>
+    @if (!User.Identity.IsAuthenticated)
     {
-            <div class="div1">
-                <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
-                <span class="name">
-                @book.BookTitle
-                </span>
-            </div>
+        <a href="/LogIn"><button style="--clr:#39FF14"><span>Log In</span><i></i></button></a>
+        <a href="/SignUpPage"><button style="--clr:#FF44CC"><span>Sign Up</span><i></i></button></a>
+        <a href="/BookPage"><button style="--clr:#0FF0FC"><span>See all books</span><i></i></button></a>
     }
-</div>
+    else
+    {
+        <a href="/BookPage"><button style="--clr:#0FF0FC"><span>See all books</span><i></i></button></a>
+        <a href="AccountInformationPage"><button style="--clr:#8A2BE2"><span>Account Information</span><i></i></button></a>
+    }
+</body>

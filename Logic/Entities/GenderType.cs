@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataLogic.DTOs;
+using Logic.DTOs;
 
 namespace Logic.Classes
 {
@@ -18,6 +18,8 @@ namespace Logic.Classes
             genderTypeName = genderTypeDTO.GenderTypeName;
         }
 
+        public GenderType() { }
+
         public GenderType(string genderTypeName)
         {
             this.genderTypeName = genderTypeName;
@@ -25,7 +27,11 @@ namespace Logic.Classes
 
         public GenderTypeDTO GenderTypeToGenderTypeDTO()
         {
-            return new GenderTypeDTO(GenderTypeId, GenderTypeName);
+            return new GenderTypeDTO() 
+            {
+                GenderTypeId = this.genderTypeId, 
+                GenderTypeName = this.genderTypeName
+            };
         }
 
         public int GenderTypeId { get => genderTypeId; set => genderTypeId = value; }

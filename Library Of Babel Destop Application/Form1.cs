@@ -11,7 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using Logic.Managers;
-using DataLogic.Interfaces;
+using Logic.Interfaces;
 using Logic;
 using DataLogic.DBs;
 
@@ -21,7 +21,6 @@ namespace Library_Of_Babel_Destop_Application
     {
         private readonly BookManager bookManager;
         private readonly IBookDB bookDB = new BookDB();
-        private List<Book> books = new List<Book>();
         private byte[] image;
         public Form1()
         {

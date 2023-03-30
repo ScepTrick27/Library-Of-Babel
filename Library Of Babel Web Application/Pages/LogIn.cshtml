@@ -1,0 +1,41 @@
+﻿@page
+@model Library_Of_Babel_Web_Application.Pages.LogInModel
+@{
+    ViewData["Title"] = "Sign In";
+    <link href="~/css/LogInStyle.css" rel="stylesheet" type="text/css" />
+    Layout = "";
+}
+
+@section scripts
+    {
+    <partal name="_ValidationScriptsPartial" />
+}
+
+
+<h1>Login</h1>
+
+<form class="login" action="" method="post">
+    <div>
+        <label asp-for="UserObject.Email" for="username">Email</label>
+        <input type="text" id="username" asp-for="UserObject.Email" name ="email" placeholder="Your email" required />
+        <span asp-validation-for="UserObject.Email"></span>
+
+    </div>
+    <div>
+        <label asp-for="UserObject.Password" for="password">Password</label>
+        <input type="password" id="password" asp-for="UserObject.Password" name="password" />
+        <span asp-validation-for="UserObject.Password"></span>
+
+    </div>
+
+    <p class="text-danger">@Model.Message</p>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="actions">
+        <input type="submit" name="login" value="login">
+    </div>
+</form>
+
+<div class="account">
+    <p>Create a new account <a href="/SignUpPage">here</a>.</p>
+</div>

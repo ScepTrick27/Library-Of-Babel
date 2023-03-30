@@ -1,5 +1,5 @@
 using DataLogic.DBs;
-using DataLogic.Interfaces;
+using Logic.Interfaces;
 using Logic.Managers;
 using Logic;
 using Microsoft.AspNetCore.Mvc;

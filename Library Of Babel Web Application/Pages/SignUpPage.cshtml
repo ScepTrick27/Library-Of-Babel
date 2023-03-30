@@ -1,0 +1,84 @@
+﻿@page
+@model Library_Of_Babel_Web_Application.Pages.SignUpPageModel
+@using Logic.Classes;
+@{
+    <link href="~/css/SignUpStyle.css" rel="stylesheet" type="text/css" />
+    Layout = "";
+}
+<form class="signup-form" method="post">
+
+    <div class="form-header">
+        <h1>Create Account</h1>
+    </div>
+
+    <div class="form-body">
+        <div class="horizontal-group">
+            <div class="form-group left">
+                <label class="label-title" asp-for="UserObject.FirstName">First Name</label>
+                <span asp-validation-for="UserObject.FirstName"></span>
+                <input type="text" class="form-input" id="firstname" asp-for="UserObject.FirstName" placeholder="Your first name" required="required" />
+            </div>
+            <div class="form-group right">
+                <label class="label-title" asp-for="UserObject.LastName">Last Name</label>
+                <span asp-validation-for="UserObject.LastName"></span>
+                <input type="text" id="lastname" class="form-input" asp-for="UserObject.LastName" placeholder="Your last name" required="required" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-title" asp-for="UserObject.Email">Email</label>
+            <span asp-validation-for="UserObject.Email"></span>
+            <input type="email" id="email" class="form-input" asp-for="UserObject.Email" placeholder="Your email" required="required" />
+        </div>
+
+        <div class="horizontal-group">
+
+            <div class="form-group left">
+                <label class="label-title" asp-for="UserObject.Password">Password</label>
+                <span asp-validation-for="UserObject.Password"></span>
+                <input type="password" id="password" class="form-input" asp-for="UserObject.Password" required="required" />
+            </div>
+
+            <div class="form-group right">
+                <label class="label-title" asp-for="UserObject.GenderType">Gender</label>
+                <span asp-validation-for="UserObject.GenderType"></span>
+                <select class="form-input" id="level" asp-for="GenderTypeId" class="form-control form-select">
+                    @foreach (GenderType g in Model.genders)
+                    {
+                        <option value="@g.GenderTypeId">@g.GenderTypeName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-title" asp-for="UserObject.Description">Description</label>
+            <span asp-validation-for="UserObject.Description"></span>
+            <textarea class="form-input" rows="4" cols="50" style="height:auto" asp-for="UserObject.Description" placeholder="Your Description" required="required"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="label-title" asp-for="UserObject.DateOfBirth">Date Of Birth</label>
+            <span asp-validation-for="UserObject.DateOfBirth"></span>
+            <input type="date" id="email" class="form-input" asp-for="UserObject.DateOfBirth" placeholder="Your date of birth" required="required" />
+        </div>
+
+        <div class="horizontal-group">
+            <div class="form-group left">
+                <label class="label-title" asp-for="UserObject.City">City</label>
+                <span asp-validation-for="UserObject.City"></span>
+                <input type="text" class="form-input" id="firstname" asp-for="UserObject.City" placeholder="Your city" required="required" />
+            </div>
+            <div class="form-group right">
+                <label class="label-title" asp-for="UserObject.Country">Country</label>
+                <span asp-validation-for="UserObject.Country"></span>
+                <input type="text" id="lastname" class="form-input" asp-for="UserObject.Country" placeholder="Your country" required="required" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <button type="submit" class="btn">Create</button>
+        <input class="btn" type="reset" value="Cancel" />
+    </div>
+</form>

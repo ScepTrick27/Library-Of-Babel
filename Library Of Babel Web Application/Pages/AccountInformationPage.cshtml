@@ -1,0 +1,85 @@
+﻿@page
+@using Logic.Classes;
+@model Library_Of_Babel_Web_Application.Pages.AccountInformationPageModel
+@{
+    <link href="~/css/SignUpStyle.css" rel="stylesheet" type="text/css" />
+    Layout = "";
+}
+<form class="signup-form">
+
+    <div class="form-header">
+        <h1>Account Information</h1>
+    </div>
+
+    <div class="form-body">
+        <div class="horizontal-group">
+            <div class="form-group left">
+                <label class="label-title" asp-for="UserObject.FirstName">First Name</label>
+                <span asp-validation-for="UserObject.FirstName"></span>
+                <input type="text" class="form-input" id="firstname" asp-for="UserObject.FirstName"  required="required" />
+            </div>
+            <div class="form-group right">
+                <label class="label-title" asp-for="UserObject.LastName">Last Name</label>
+                <span asp-validation-for="UserObject.LastName"></span>
+                <input type="text" id="lastname" class="form-input" asp-for="UserObject.LastName"  required="required" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-title" asp-for="UserObject.Email">Email</label>
+            <span asp-validation-for="UserObject.Email"></span>
+            <input type="email" id="email" class="form-input" asp-for="UserObject.Email"  required="required" />
+        </div>
+
+        <div class="horizontal-group">
+
+            <div class="form-group left">
+                <label class="label-title" asp-for="UserObject.Password">Password</label>
+                <span asp-validation-for="UserObject.Password"></span>
+                <input type="password" id="password" class="form-input" asp-for="UserObject.Password" required="required" />
+            </div>
+
+            <div class="form-group right">
+                <label class="label-title" asp-for="UserObject.GenderType">Gender</label>
+                <span asp-validation-for="UserObject.GenderType"></span>
+                <input type="text" id="lastname" class="form-input" asp-for="UserObject.GenderType.GenderTypeName" required="required" />
+@*                <select class="form-input" id="level" asp-for="GenderTypeId" class="form-control form-select">
+                    @foreach (GenderType g in Model.genders)
+                    {
+                        <option value="@g.GenderTypeId">@g.GenderTypeName</option>
+                    }
+                </select>*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-title" asp-for="UserObject.Description">Description</label>
+            <span asp-validation-for="UserObject.Description"></span>
+            <textarea class="form-input" rows="4" cols="50" style="height:auto" asp-for="UserObject.Description" required="required"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="label-title" asp-for="UserObject.DateOfBirth">Date Of Birth</label>
+            <span asp-validation-for="UserObject.DateOfBirth"></span>
+            <input type="date" id="email" class="form-input" asp-for="UserObject.DateOfBirth" required="required" />
+        </div>
+
+        <div class="horizontal-group">
+            <div class="form-group left">
+                <label class="label-title" asp-for="UserObject.City">City</label>
+                <span asp-validation-for="UserObject.City"></span>
+                <input type="text" class="form-input" id="firstname" asp-for="UserObject.City" required="required" />
+            </div>
+            <div class="form-group right">
+                <label class="label-title" asp-for="UserObject.Country">Country</label>
+                <span asp-validation-for="UserObject.Country"></span>
+                <input type="text" id="lastname" class="form-input" asp-for="UserObject.Country" required="required" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+@*        <button type="submit" class="btn">Create</button>
+        <input class="btn" type="reset" value="Cancel" />*@
+    </div>
+</form>

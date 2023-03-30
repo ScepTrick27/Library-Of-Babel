@@ -1,4 +1,4 @@
-﻿using DataLogic.DTOs;
+﻿using Logic.DTOs;
 
 namespace Logic
 {
@@ -32,15 +32,22 @@ namespace Logic
 
         public BookDTO BookToBookDTO()
         {
-            return new BookDTO(BookTitle, BookDescription, BookAuthor, BookPublishDate, BookImage);
+            return new BookDTO()
+            {
+                BookTitle = this.bookTitle,
+                BookDescription = this.bookDescription,
+                BookAuthor = this.bookAuthor,
+                BookPublishDate = this.bookPublishDate,
+                BookImage = this.bookImage
+            };
         }
 
-        public int BookId { get => bookId; set => bookId = value; }
-        public string BookTitle { get => bookTitle; set => bookTitle = value; }
-        public string BookDescription { get => bookDescription; set => bookDescription = value; }
-        public string BookAuthor { get => bookAuthor; set => bookAuthor = value; }
-        public DateTime BookPublishDate { get => bookPublishDate; set => bookPublishDate = value; }
-        public byte[] BookImage { get => bookImage; set => bookImage = value; }
+        public int BookId { get => bookId; }
+        public string BookTitle { get => bookTitle; }
+        public string BookDescription { get => bookDescription; }
+        public string BookAuthor { get => bookAuthor; }
+        public DateTime BookPublishDate { get => bookPublishDate; }
+        public byte[] BookImage { get => bookImage; }
 
         public override string ToString()
         {

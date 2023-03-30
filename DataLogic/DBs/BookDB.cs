@@ -1,9 +1,10 @@
-﻿using DataLogic.DTOs;
-using DataLogic.Interfaces;
+﻿using Logic.DTOs;
+using Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,7 +53,17 @@ namespace DataLogic.DBs
 
                 while (dr.Read())
                 {
-                    books.Add(new BookDTO(dr));
+                    var bookDTO = new BookDTO
+                    {
+                        BookId = Convert.ToInt32(dr["book_id"]),
+                        BookTitle = dr["book_title"].ToString(),
+                        BookDescription = dr["book_description"].ToString(),
+                        BookAuthor = dr["book_author"].ToString(),
+                        BookPublishDate = Convert.ToDateTime(dr["book_publish_date"]),
+                        BookImage = (byte[])dr["book_photo"]
+                    };
+
+                    books.Add(bookDTO);
                 }
                 return books.ToArray();
 

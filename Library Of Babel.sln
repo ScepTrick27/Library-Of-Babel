@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library Of Babel Destop Application", "Library Of Babel Destop Application\Library Of Babel Destop Application.csproj", "{3F3799D9-39AB-47B5-8052-8B0D1B51FFD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{48D99BFF-B793-4E2E-BC1D-7CE3D9ED4E2E} = {48D99BFF-B793-4E2E-BC1D-7CE3D9ED4E2E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library Of Babel Web Application", "Library Of Babel Web Application\Library Of Babel Web Application.csproj", "{41839094-290B-456A-99EF-025EA8BAFF64}"
 EndProject

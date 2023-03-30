@@ -1,4 +1,5 @@
-﻿using DataLogic.DTOs;
+﻿using Logic.DTOs;
+using Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.DBs
 {
-    public class UserDB : DBMediator
+    public class UserDB : DBMediator, IUserDB
     {
         public bool AddUser(UserDTO userDTO)
         {
@@ -33,13 +34,13 @@ namespace DataLogic.DBs
                 conn.Open();
                 int insertedId = Convert.ToInt32(cmd.ExecuteScalar());
 
-                const string query = "INSERT INTO synthesis_customer ([person_id], [user_description])" +
+                const string query = "INSERT INTO individual_customer ([person_id], [user_description])" +
                     "VALUES (@person_id, @user_description)";
 
                 SqlCommand cmd1 = new SqlCommand(query, conn);
 
                 cmd1.Parameters.AddWithValue("@person_id", insertedId);
-                cmd1.Parameters.AddWithValue("@bonus_points", userDTO.Description);
+                cmd1.Parameters.AddWithValue("@user_description", userDTO.Description);
 
                 cmd1.ExecuteNonQuery();
 
@@ -56,7 +57,7 @@ namespace DataLogic.DBs
         {
             try
             {
-                string sql = "SELECT * FROM individual_person ip INNER JOIN individual_customer ic ON ip.person_id = ic.person_id WHERE email = @email AND password = hashbytes('SHA2_256', convert(varchar(max), concat(convert(varchar(max), @password), password_salt)))";
+                string sql = "SELECT * FROM individual_person ip INNER JOIN individual_customer ic ON ip.person_id = ic.person_id INNER JOIN individual_gender ig ON ip.gender_id = ig.gender_id WHERE email = @email AND password = hashbytes('SHA2_256', convert(varchar(max), concat(convert(varchar(max), @password), password_salt)))";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@password", password);
@@ -66,7 +67,63 @@ namespace DataLogic.DBs
 
                 while (dr.Read())
                 {
-                    return new UserDTO(dr);
+                    var userDTO = new UserDTO
+                    {
+                        PersonId = Convert.ToInt32(dr["person_id"]),
+                        Email = dr["email"].ToString(),
+                        Password = dr["password"].ToString(),
+                        FirstName = dr["first_name"].ToString(),
+                        LastName = dr["last_name"].ToString(),
+                        GenderTypeDTO = new GenderTypeDTO
+                        {
+                            GenderTypeId = Convert.ToInt32(dr["gender_id"]),
+                            GenderTypeName = dr["gender_name"].ToString()
+                        },
+                        DateOfBirth = Convert.ToDateTime(dr["date_of_birth"])
+                    };
+                    return userDTO;
+
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            throw new Exception();
+        }
+
+        public UserDTO GetUserByID(int id)
+        {
+            try
+            {
+                string sql = "SELECT * FROM individual_person ip INNER JOIN individual_customer ic ON ip.person_id = ic.person_id INNER JOIN individual_gender ig ON ip.gender_id = ig.gender_id WHERE ip.person_id = @person_id";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@person_id", id);
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+
+                while (dr.Read())
+                {
+                    var userDTO = new UserDTO
+                    {
+                        PersonId = Convert.ToInt32(dr["person_id"]),
+                        Email = dr["email"].ToString(),
+                        Password = dr["password"].ToString(),
+                        FirstName = dr["first_name"].ToString(),
+                        LastName = dr["last_name"].ToString(),
+                        GenderTypeDTO = new GenderTypeDTO
+                        {
+                            GenderTypeId = Convert.ToInt32(dr["gender_id"]),
+                            GenderTypeName = dr["gender_name"].ToString()
+                        },
+                        DateOfBirth = Convert.ToDateTime(dr["date_of_birth"]),
+                        Description = dr["user_description"].ToString(),
+                        City = dr["city"].ToString(),
+                        Country = dr["country"].ToString()
+                    };
+                    return userDTO;
+
                 }
             }
             finally

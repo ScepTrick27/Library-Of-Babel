@@ -1,4 +1,4 @@
-﻿using DataLogic.DTOs;
+﻿using Logic.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +11,18 @@ namespace Logic.Classes
     {
         private string description;
 
+        public string Description { get => description; set => description = value; }
+
         public User(string email, string password, string firstName, string lastName, GenderType genderType, DateTime dateOfBirth, string city, string country, string description) : base(email, password, firstName, lastName, genderType, dateOfBirth, city, country)
         {
             this.description = description;
         }
 
+        public User() { }
+
         public User(UserDTO userDTO) : base(userDTO)
         {
+            this.personId = userDTO.PersonId;
             this.email = userDTO.Email;
             this.password = userDTO.Password;
             this.firstName = userDTO.FirstName;
@@ -35,9 +40,19 @@ namespace Logic.Classes
 
         public UserDTO UserToUserDTO()
         {
-            return new UserDTO(Email, Password, FirstName, LastName, GenderType.GenderTypeToGenderTypeDTO(), DateOfBirth, City, Country, Description);
+            return new UserDTO()
+            {
+                Email = Email,
+                Password = Password,
+                FirstName = FirstName,
+                LastName = LastName,
+                GenderTypeDTO = GenderType.GenderTypeToGenderTypeDTO(),
+                DateOfBirth = DateOfBirth,
+                City = City,
+                Country = Country,
+                Description = Description
+            };
         }
 
-        public string Description { get => description; set => description = value; }
     }
 }

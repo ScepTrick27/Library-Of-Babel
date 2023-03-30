@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataLogic.DTOs;
+using Logic.DTOs;
 
 
 namespace Logic.Classes
@@ -20,6 +20,16 @@ namespace Logic.Classes
         protected string city;
         protected string country;
 
+        public int PersonId { get => personId; set => personId = value; }
+        public string Email { get => email; set => email = value; }
+        public string Password { get => password; set => password = value; }
+        public string FirstName { get => firstName; set => firstName = value; }
+        public string LastName { get => lastName; set => lastName = value; }
+        public GenderType GenderType { get => genderType; set => genderType = value; }
+        public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
+        public string City { get => city; set => city = value; }
+        public string Country { get => country; set => country = value; }
+
         protected Person(string email, string password, string firstName, string lastName, GenderType genderType, DateTime dateOfBirth, string city, string country)
         {
             this.email = email;
@@ -32,8 +42,11 @@ namespace Logic.Classes
             this.country = country;
         }
 
+        protected Person() { }
+
         protected Person(UserDTO personDTO)
         {
+            this.personId = personDTO.PersonId;
             this.email = personDTO.Email;
             this.password = personDTO.Password;
             this.firstName = personDTO.FirstName;
@@ -47,15 +60,5 @@ namespace Logic.Classes
             this.city = personDTO.City;
             this.country = personDTO.Country;
         }
-
-        protected int PersonId { get => personId; set => personId = value; }
-        protected string Email { get => email; set => email = value; }
-        protected string Password { get => password; set => password = value; }
-        protected string FirstName { get => firstName; set => firstName = value; }
-        protected string LastName { get => lastName; set => lastName = value; }
-        protected GenderType GenderType { get => genderType; set => genderType = value; }
-        protected DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
-        protected string City { get => city; set => city = value; }
-        protected string Country { get => country; set => country = value; }
     }
 }
