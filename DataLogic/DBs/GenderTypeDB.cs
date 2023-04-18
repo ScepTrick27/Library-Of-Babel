@@ -16,30 +16,56 @@ namespace DataLogic.DBs
             try
             {
                 List<GenderTypeDTO> genders = new List<GenderTypeDTO>();
-                string sql = "SELECT * FROM individual_gender";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                conn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
 
-                while (dr.Read())
+                using (SqlConnection conn = CreateConnection())
                 {
-                    var genderTypeDTO = new GenderTypeDTO
+                    string sql = "SELECT * FROM individual_gender";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    conn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
                     {
-                        GenderTypeId = Convert.ToInt32(dr["gender_id"]),
-                        GenderTypeName = dr["gender_name"].ToString()
-                    };
+                        var genderTypeDTO = new GenderTypeDTO
+                        {
+                            GenderTypeId = Convert.ToInt32(dr["gender_id"]),
+                            GenderTypeName = dr["gender_name"].ToString()
+                        };
 
-                    genders.Add(genderTypeDTO);
+                        genders.Add(genderTypeDTO);
+                    }
+                    return genders.ToArray();
                 }
-                return genders.ToArray();
-
             }
-            catch (Exception)
-            {
+            catch (Exception ex) { throw; }
 
-                throw;
-            }
-            finally { conn.Close(); }
+            //try
+            //{
+            //    List<GenderTypeDTO> genders = new List<GenderTypeDTO>();
+            //    string sql = "SELECT * FROM individual_gender";
+            //    SqlCommand cmd = new SqlCommand(sql, conn);
+            //    conn.Open();
+            //    SqlDataReader dr = cmd.ExecuteReader();
+
+            //    while (dr.Read())
+            //    {
+            //        var genderTypeDTO = new GenderTypeDTO
+            //        {
+            //            GenderTypeId = Convert.ToInt32(dr["gender_id"]),
+            //            GenderTypeName = dr["gender_name"].ToString()
+            //        };
+
+            //        genders.Add(genderTypeDTO);
+            //    }
+            //    return genders.ToArray();
+
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
+            //finally { conn.Close(); }
         }
     }
 }

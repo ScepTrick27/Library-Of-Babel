@@ -16,28 +16,27 @@ namespace DataLogic.DBs
         {
             try
             {
-                const string sql = "INSERT INTO individual_book ([book_title], [book_description], [book_author], [book_publish_date], [book_photo])" +
-                "VALUES (@book_title, @book_description, @book_author, @book_publish_date, @book_photo)";
+                using (SqlConnection conn = CreateConnection())
+                {
+                    const string sql = "INSERT INTO individual_book ([book_title], [book_description], [book_author], [book_publish_date], [book_photo])" +
+                    "VALUES (@book_title, @book_description, @book_author, @book_publish_date, @book_photo)";
 
-                SqlCommand cmd = new SqlCommand(sql, conn);
+                    SqlCommand cmd = new SqlCommand(sql, conn);
 
 
-                cmd.Parameters.AddWithValue("@book_title", bookDTO.BookTitle);
-                cmd.Parameters.AddWithValue("@book_description", bookDTO.BookDescription);
-                cmd.Parameters.AddWithValue("@book_author", bookDTO.BookAuthor);
-                cmd.Parameters.AddWithValue("@book_publish_date", bookDTO.BookPublishDate);
-                cmd.Parameters.AddWithValue("@book_photo", bookDTO.BookImage);
+                    cmd.Parameters.AddWithValue("@book_title", bookDTO.BookTitle);
+                    cmd.Parameters.AddWithValue("@book_description", bookDTO.BookDescription);
+                    cmd.Parameters.AddWithValue("@book_author", bookDTO.BookAuthor);
+                    cmd.Parameters.AddWithValue("@book_publish_date", bookDTO.BookPublishDate);
+                    cmd.Parameters.AddWithValue("@book_photo", bookDTO.BookImage);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    return true;
 
-                return true;
-
+                }
             }
-            finally
-            {
-                conn.Close();
-            }
+            catch (Exception ex) { return false; }
         }
 
         public BookDTO[] GetAllBooks()
@@ -45,35 +44,33 @@ namespace DataLogic.DBs
             try
             {
                 List<BookDTO> books = new List<BookDTO>();
-                string sql = "SELECT * FROM individual_book";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                conn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
 
-
-                while (dr.Read())
+                using (SqlConnection conn = CreateConnection())
                 {
-                    var bookDTO = new BookDTO
+                    string sql = "SELECT * FROM individual_book";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    conn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+
+                    while (dr.Read())
                     {
-                        BookId = Convert.ToInt32(dr["book_id"]),
-                        BookTitle = dr["book_title"].ToString(),
-                        BookDescription = dr["book_description"].ToString(),
-                        BookAuthor = dr["book_author"].ToString(),
-                        BookPublishDate = Convert.ToDateTime(dr["book_publish_date"]),
-                        BookImage = (byte[])dr["book_photo"]
-                    };
+                        var bookDTO = new BookDTO
+                        {
+                            BookId = Convert.ToInt32(dr["book_id"]),
+                            BookTitle = dr["book_title"].ToString(),
+                            BookDescription = dr["book_description"].ToString(),
+                            BookAuthor = dr["book_author"].ToString(),
+                            BookPublishDate = Convert.ToDateTime(dr["book_publish_date"]),
+                            BookImage = (byte[])dr["book_photo"]
+                        };
 
-                    books.Add(bookDTO);
+                        books.Add(bookDTO);
+                    }
+                    return books.ToArray();
                 }
-                return books.ToArray();
-
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally { conn.Close(); }
+            catch (Exception ex) { throw; }
         }
     }
 }

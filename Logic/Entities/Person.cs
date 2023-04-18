@@ -20,15 +20,15 @@ namespace Logic.Classes
         protected string city;
         protected string country;
 
-        public int PersonId { get => personId; set => personId = value; }
-        public string Email { get => email; set => email = value; }
-        public string Password { get => password; set => password = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
-        public GenderType GenderType { get => genderType; set => genderType = value; }
-        public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
-        public string City { get => city; set => city = value; }
-        public string Country { get => country; set => country = value; }
+        public int PersonId { get => personId; }//set => personId = value; }
+        public string Email { get => email; }//set => email = value; }
+        public string Password { get => password; }//set => password = value; }
+        public string FirstName { get => firstName; }// set => firstName = value; }
+        public string LastName { get => lastName; }//set => lastName = value; }
+        public GenderType GenderType { get => genderType; }//set => genderType = value; }
+        public DateTime DateOfBirth { get => dateOfBirth; }//set => dateOfBirth = value; }
+        public string City { get => city; }//set => city = value; }
+        public string Country { get => country; }//set => country = value; }
 
         protected Person(string email, string password, string firstName, string lastName, GenderType genderType, DateTime dateOfBirth, string city, string country)
         {
@@ -41,8 +41,6 @@ namespace Logic.Classes
             this.city = city;
             this.country = country;
         }
-
-        protected Person() { }
 
         protected Person(UserDTO personDTO)
         {

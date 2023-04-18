@@ -40,8 +40,8 @@
             </div>
 
             <div class="form-group right">
-                <label class="label-title" asp-for="UserObject.GenderType">Gender</label>
-                <span asp-validation-for="UserObject.GenderType"></span>
+                <label class="label-title" asp-for="UserObject.GenderTypeDTO">Gender</label>
+                <span asp-validation-for="UserObject.GenderTypeDTO"></span>
                 <select class="form-input" id="level" asp-for="GenderTypeId" class="form-control form-select">
                     @foreach (GenderType g in Model.genders)
                     {

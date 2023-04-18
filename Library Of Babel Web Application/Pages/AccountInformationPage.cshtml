@@ -40,9 +40,9 @@
             </div>
 
             <div class="form-group right">
-                <label class="label-title" asp-for="UserObject.GenderType">Gender</label>
-                <span asp-validation-for="UserObject.GenderType"></span>
-                <input type="text" id="lastname" class="form-input" asp-for="UserObject.GenderType.GenderTypeName" required="required" />
+                <label class="label-title" asp-for="UserObject.GenderTypeDTO">Gender</label>
+                <span asp-validation-for="UserObject.GenderTypeDTO"></span>
+                <input type="text" id="lastname" class="form-input" asp-for="UserObject.GenderTypeDTO.GenderTypeName" required="required" />
 @*                <select class="form-input" id="level" asp-for="GenderTypeId" class="form-control form-select">
                     @foreach (GenderType g in Model.genders)
                     {

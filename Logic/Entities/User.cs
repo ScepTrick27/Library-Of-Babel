@@ -18,8 +18,6 @@ namespace Logic.Classes
             this.description = description;
         }
 
-        public User() { }
-
         public User(UserDTO userDTO) : base(userDTO)
         {
             this.personId = userDTO.PersonId;
@@ -42,6 +40,7 @@ namespace Logic.Classes
         {
             return new UserDTO()
             {
+                PersonId = PersonId,
                 Email = Email,
                 Password = Password,
                 FirstName = FirstName,

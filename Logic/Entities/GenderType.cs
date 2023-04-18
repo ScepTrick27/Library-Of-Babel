@@ -18,8 +18,6 @@ namespace Logic.Classes
             genderTypeName = genderTypeDTO.GenderTypeName;
         }
 
-        public GenderType() { }
-
         public GenderType(string genderTypeName)
         {
             this.genderTypeName = genderTypeName;

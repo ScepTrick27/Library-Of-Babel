@@ -1,5 +1,6 @@
 using DataLogic.DBs;
 using Logic.Classes;
+using Logic.DTOs;
 using Logic.Managers;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -12,9 +13,9 @@ namespace Library_Of_Babel_Web_Application.Pages
     public class AccountInformationPageModel : PageModel
     {
         [BindProperty]
-        public User UserObject { get; set; }
+        public UserDTO UserObject { get; set; }
         [BindProperty]
-        public GenderType GenderTypeObject { get; set; }
+        public GenderTypeDTO GenderTypeObject { get; set; }
         [BindProperty]
         public int GenderTypeId { get; set; }
         private readonly UserManager userManager;
@@ -34,11 +35,11 @@ namespace Library_Of_Babel_Web_Application.Pages
             //if (HttpContext.Session.GetInt32("user_id").Value != null)
             //{
             //    UserObject = userManager.GetUserByID(HttpContext.Session.GetInt32("user_id").Value);
-            //    User.Identity.Name
+            string? id = User?.FindFirst("id")?.Value;
             //}
-            if (Request.Cookies["user_id"] != null)
+            if (id != null)
             {
-                UserObject = userManager.GetUserByID(Convert.ToInt32(Request.Cookies["user_id"]));
+                UserObject = userManager.GetUserByID(Convert.ToInt32(id)).UserToUserDTO();
                 //foreach (GenderType genderType in genders)
                 //{
                 //    if (genderType.GenderTypeId == GenderTypeId)

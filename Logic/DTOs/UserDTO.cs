@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.DTOs
 {
-    public struct UserDTO
+    public class UserDTO
     {
         public int PersonId { get; set; }
         public string Email { get; set; }

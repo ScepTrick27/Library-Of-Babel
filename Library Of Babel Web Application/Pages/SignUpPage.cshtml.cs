@@ -1,4 +1,5 @@
 using Logic.Classes;
+using Logic.DTOs;
 using Logic.Managers;
 using Logic.Interfaces;
 using DataLogic.DBs;
@@ -12,9 +13,9 @@ namespace Library_Of_Babel_Web_Application.Pages
     public class SignUpPageModel : PageModel
     {
         [BindProperty]
-        public User UserObject { get; set; }
+        public UserDTO UserObject { get; set; }
         [BindProperty]
-        public GenderType GenderTypeObject { get; set; }
+        public GenderTypeDTO GenderTypeObject { get; set; }
         [BindProperty]
         public int GenderTypeId { get; set; }
 
@@ -39,13 +40,14 @@ namespace Library_Of_Babel_Web_Application.Pages
             {
                 if (genderType.GenderTypeId == GenderTypeId)
                 {
-                    GenderTypeObject = genderType;
+                    GenderTypeObject = genderType.GenderTypeToGenderTypeDTO();
                 }
             }
 
-            UserObject.GenderType = GenderTypeObject;
+            //UserObject.GenderTypeDTO = GenderTypeObject;
+            UserObject.GenderTypeDTO = GenderTypeObject;
 
-            userManager.AddUser(UserObject);
+            userManager.AddUser(new User(UserObject));
 
             return RedirectToPage("/LogIn");
 
