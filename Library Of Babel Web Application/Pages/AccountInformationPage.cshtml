@@ -43,12 +43,6 @@
                 <label class="label-title" asp-for="UserObject.GenderTypeDTO">Gender</label>
                 <span asp-validation-for="UserObject.GenderTypeDTO"></span>
                 <input type="text" id="lastname" class="form-input" asp-for="UserObject.GenderTypeDTO.GenderTypeName" required="required" />
-@*                <select class="form-input" id="level" asp-for="GenderTypeId" class="form-control form-select">
-                    @foreach (GenderType g in Model.genders)
-                    {
-                        <option value="@g.GenderTypeId">@g.GenderTypeName</option>
-                    }
-                </select>*@
             </div>
         </div>
 
@@ -79,7 +73,5 @@
     </div>
 
     <div class="form-footer">
-@*        <button type="submit" class="btn">Create</button>
-        <input class="btn" type="reset" value="Cancel" />*@
     </div>
 </form>

@@ -10,13 +10,6 @@ namespace DataLogic.DBs
     public class DBMediator
     {
         const string connStr = "Server=mssqlstud.fhict.local;Database=dbi489945;User Id=dbi489945;Password=booMPentakill27;Encrypt=false;";
-        //protected SqlConnection conn;
-
-        public DBMediator()
-        {
-            //this.conn = new SqlConnection(connStr);
-        }
-
 
         public SqlConnection CreateConnection()
         {

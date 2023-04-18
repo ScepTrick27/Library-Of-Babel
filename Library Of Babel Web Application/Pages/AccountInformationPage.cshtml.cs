@@ -32,23 +32,11 @@ namespace Library_Of_Babel_Web_Application.Pages
 
         public void OnGet()
         {
-            //if (HttpContext.Session.GetInt32("user_id").Value != null)
-            //{
-            //    UserObject = userManager.GetUserByID(HttpContext.Session.GetInt32("user_id").Value);
             string? id = User?.FindFirst("id")?.Value;
-            //}
+
             if (id != null)
             {
                 UserObject = userManager.GetUserByID(Convert.ToInt32(id)).UserToUserDTO();
-                //foreach (GenderType genderType in genders)
-                //{
-                //    if (genderType.GenderTypeId == GenderTypeId)
-                //    {
-                //        GenderTypeObject = genderType;
-                //    }
-                //}
-
-                //UserObject.GenderType = GenderTypeObject;
             }
         }
 
