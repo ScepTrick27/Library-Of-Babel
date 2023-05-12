@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Logic.Interfaces
 {
-    public interface IBookDB
+    public interface IBookGenreDB
     {
-        public bool AddBook(BookDTO bookDTO);
-        public BookDTO[] GetAllBooks();
-        public BookDTO GetBookById(int id);
+        public bool AddBookGenre(BookGenreDTO bookGenre);
+        public List<BookGenreDTO> GetAllGenresForABookById(int bookId);
     }
 }

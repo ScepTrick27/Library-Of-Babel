@@ -38,34 +38,6 @@ namespace DataLogic.DBs
                 }
             }
             catch (Exception ex) { throw; }
-
-            //try
-            //{
-            //    List<GenderTypeDTO> genders = new List<GenderTypeDTO>();
-            //    string sql = "SELECT * FROM individual_gender";
-            //    SqlCommand cmd = new SqlCommand(sql, conn);
-            //    conn.Open();
-            //    SqlDataReader dr = cmd.ExecuteReader();
-
-            //    while (dr.Read())
-            //    {
-            //        var genderTypeDTO = new GenderTypeDTO
-            //        {
-            //            GenderTypeId = Convert.ToInt32(dr["gender_id"]),
-            //            GenderTypeName = dr["gender_name"].ToString()
-            //        };
-
-            //        genders.Add(genderTypeDTO);
-            //    }
-            //    return genders.ToArray();
-
-            //}
-            //catch (Exception)
-            //{
-
-            //    throw;
-            //}
-            //finally { conn.Close(); }
         }
     }
 }

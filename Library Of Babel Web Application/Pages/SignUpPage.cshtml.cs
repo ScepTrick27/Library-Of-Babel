@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using Logic;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Library_Of_Babel_Web_Application.Pages
 {
@@ -28,6 +29,7 @@ namespace Library_Of_Babel_Web_Application.Pages
         {
             userManager = new UserManager(userDB);
             genderTypeManager = new GenderTypeManager(genderTypeDB);
+
         }
 
         public void OnGet()
@@ -36,6 +38,9 @@ namespace Library_Of_Babel_Web_Application.Pages
 
         public IActionResult OnPost()
         {
+            ModelState.Remove("UserObject.GenderTypeDTO");
+            ModelState.Remove("GenderTypeId");
+            ModelState.Remove("GenderTypeName");
             foreach (GenderType genderType in genders)
             {
                 if (genderType.GenderTypeId == GenderTypeId)
@@ -44,14 +49,19 @@ namespace Library_Of_Babel_Web_Application.Pages
                 }
             }
 
-            //UserObject.GenderTypeDTO = GenderTypeObject;
             UserObject.GenderTypeDTO = GenderTypeObject;
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             userManager.AddUser(new User(UserObject));
 
-            return RedirectToPage("/LogIn");
+                return RedirectToPage("/LogIn");
+            }
 
-        }
+
 
         public IEnumerable<GenderType> genders => genderTypeManager.GetAllGenders();
     }

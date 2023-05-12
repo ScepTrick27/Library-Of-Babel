@@ -15,12 +15,28 @@ namespace Library_Of_Babel_Web_Application.Pages
         [BindProperty]
         public BookDTO bookObject { get; set; }
 
+        //public List<BookDTO> bookss = new List<BookDTO>();
+
         public BookPageModel() 
         {
             bookManager = new BookManager(bookDB);
         }
         public void OnGet()
         {
+
+        }
+
+        public IActionResult OnPost()
+        {
+            if (bookObject.BookId != -1)
+            {
+                HttpContext.Session.SetInt32("book_id", bookObject.BookId);
+                return RedirectToPage("/Book");
+            }
+            else
+            {
+                return Page();
+            }
         }
 
         public IEnumerable<Book> books => bookManager.GetAllBooks();

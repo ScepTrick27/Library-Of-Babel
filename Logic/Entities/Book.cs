@@ -34,6 +34,7 @@ namespace Logic
         {
             return new BookDTO()
             {
+                BookId = this.bookId,
                 BookTitle = this.bookTitle,
                 BookDescription = this.bookDescription,
                 BookAuthor = this.bookAuthor,

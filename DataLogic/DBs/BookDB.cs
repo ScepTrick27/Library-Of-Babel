@@ -1,5 +1,6 @@
 ﻿using Logic.DTOs;
 using Logic.Interfaces;
+using Logic.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -36,7 +37,11 @@ namespace DataLogic.DBs
 
                 }
             }
-            catch (Exception ex) { return false; }
+            catch (SqlException ex) 
+            { 
+                BookException bookException = new BookException("An error occurred while adding the book to the database", ex);
+                return false; 
+            }
         }
 
         public BookDTO[] GetAllBooks()
@@ -70,7 +75,47 @@ namespace DataLogic.DBs
                     return books.ToArray();
                 }
             }
-            catch (Exception ex) { throw; }
+            catch (SqlException ex) {
+                // log ex;
+                throw new BookException("Something went wrong when getting all the books", ex);
+            }
+        }
+
+        public BookDTO GetBookById(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = CreateConnection())
+                {
+                    string sql = "SELECT * FROM individual_book WHERE book_id = @book_id";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@book_id", id);
+                    conn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+
+                    while (dr.Read())
+                    {
+                        var bookDTO = new BookDTO
+                        {
+                            BookId = Convert.ToInt32(dr["book_id"]),
+                            BookTitle = dr["book_title"].ToString(),
+                            BookDescription = dr["book_description"].ToString(),
+                            BookAuthor = dr["book_author"].ToString(),
+                            BookPublishDate = Convert.ToDateTime(dr["book_publish_date"]),
+                            BookImage = (byte[])dr["book_photo"]
+                        };
+
+                        return bookDTO;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // log ex;
+                throw new BookException("Something went wrong while getting the book by ID" , ex);
+            }
+            throw new BookException("The book with the specified ID could not be found");
         }
     }
 }

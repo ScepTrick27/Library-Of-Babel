@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using System.Net;
+using Logic.Exceptions;
 
 namespace Library_Of_Babel_Web_Application.Pages
 {
@@ -15,6 +16,7 @@ namespace Library_Of_Babel_Web_Application.Pages
     {
         [BindProperty]
         public UserDTO UserObject { get; set; }
+        [BindProperty]
         public string Message { get; set; }
 
         private readonly UserManager userManager;
@@ -49,9 +51,10 @@ namespace Library_Of_Babel_Web_Application.Pages
 
                     return RedirectToPage("Index");
                 }
-                catch (Exception e)
+                catch (UserException e)
                 {
                     this.Message = "Invalid credentials";
+                    ModelState.AddModelError("Invalid Credentials", e.Message);
                     return Page();
                 }
             }
@@ -59,7 +62,6 @@ namespace Library_Of_Babel_Web_Application.Pages
             {
                 this.Message = "Invalid credentials";
                 return Page();
-
             }
         }
     }

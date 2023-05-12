@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Logic.DTOs
 {
-    public struct GenreDTO
+    public class GenreDTO
     {
         public int GenreId { get; set; }
         public string GenreName { get; set; }
+
+        //public GenreDTO() { }
     }
 }

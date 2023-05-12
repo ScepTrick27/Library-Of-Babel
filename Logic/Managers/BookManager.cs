@@ -19,6 +19,11 @@ namespace Logic.Managers
 
         public bool AddBook(Book book)
         {
+
+            // it will check if the book is actually published
+
+
+
             return bookDB.AddBook(book.BookToBookDTO());
         }
 
@@ -32,6 +37,11 @@ namespace Logic.Managers
             }
 
             return books.ToArray();
+        }
+
+        public Book GetBookById(int id)
+        {
+            return new Book(bookDB.GetBookById(id));
         }
     }
 }

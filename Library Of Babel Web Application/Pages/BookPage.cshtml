@@ -1,6 +1,7 @@
 ﻿@page
 @using Logic;
 @using DataLogic;
+@using Logic.DTOs;
 @model Library_Of_Babel_Web_Application.Pages.BookPageModel
 @{
     <link href="~/css/Style.css" rel="stylesheet" type="text/css" />
@@ -9,12 +10,16 @@
 <div class="parent">
     @foreach (Book book in Model.books)
     {
-        <div class="div1">
-            <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
-            <span class="name">
-                @book.BookTitle
-            </span>
-        </div>
+        <form method="post">
+            <div class="div1">
+                <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" />
+                <span class="name">
+                    @book.BookTitle
+                </span>
+                <input asp-for="bookObject.BookId" type="hidden" value="@book.BookId " />
+                <input type="submit" value="Add to favourite list">
+            </div>
+        </form>
     }
 </div>
 

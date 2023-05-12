@@ -1,4 +1,5 @@
 ﻿using Logic.DTOs;
+using Logic.Exceptions;
 using Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace DataLogic.DBs
                     return true;
                 }
             }
-            catch (Exception ex) { throw; }
+            catch (SqlException ex) { throw new UserException("Error adding the user to the database", ex); }
         }
 
         public UserDTO GetUserByAccount(string email, string password)
@@ -86,9 +87,9 @@ namespace DataLogic.DBs
                     }
                 }
             }
-            catch (Exception ex) { throw; }
+            catch (SqlException ex) { throw new UserException("Something went wrong while getting the user by the account", ex); }
 
-            throw new NotImplementedException();
+            throw new UserException("Something went wrong while getting the user by the account");
         }
 
         public UserDTO GetUserByID(int id)
@@ -126,9 +127,9 @@ namespace DataLogic.DBs
                     }
                 }
             }
-            catch (Exception ex) { throw; }
+            catch (SqlException ex) { throw new UserException("Something went wrong when getting the user by the id", ex); }
 
-            throw new Exception();
+            throw new UserException("Something went wrong when getting the user by the id");
         }
 
     }

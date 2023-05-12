@@ -1,0 +1,35 @@
+﻿@page
+@model Library_Of_Babel_Web_Application.Pages.BookModel
+@using Logic.Entities;
+@using Logic.DTOs;
+@{
+}
+<form method="post">
+    <div class=" book">
+        <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(@Model.BookObject.BookImage)" />
+        <h1>@Model.BookObject.BookTitle</h1>
+        <p>@Model.BookObject.BookDescription</p>
+
+        <p>What genre is this book?</p>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            @foreach (FavouriteBook fb in Model.favouriteBooks)
+            {
+                if (Model.BookObject.BookId != fb.Book.BookId)
+                {
+                    <div>
+                        <select class="form-input" id="level" asp-for="GenreId" class="form-control form-select">
+                            <option disabled selected> -- select an option -- </option>
+                            @foreach (Genre g in Model.genres)
+                            {
+                                <option value="@g.GenreId">@g.GenreName</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="submit" value="Add genre" />
+                }
+            }
+        }
+    </div>
+</form>

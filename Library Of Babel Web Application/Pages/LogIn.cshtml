@@ -8,7 +8,7 @@
 
 @section scripts
     {
-    <partal name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
 
 
@@ -35,6 +35,8 @@
         <input type="submit" name="login" value="login">
     </div>
 </form>
+
+<div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="account">
     <p>Create a new account <a href="/SignUpPage">here</a>.</p>

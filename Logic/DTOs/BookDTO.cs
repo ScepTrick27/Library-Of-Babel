@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.DTOs
 {
-    public struct BookDTO
+    public class BookDTO
     {
         public int BookId { get; set; }
         public string BookTitle { get; set; }
@@ -14,5 +14,7 @@ namespace Logic.DTOs
         public string BookAuthor { get; set; }
         public DateTime BookPublishDate { get; set; }
         public byte[] BookImage { get; set; }
+
+        public BookDTO() { }
     }
 }

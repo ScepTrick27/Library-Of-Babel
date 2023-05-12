@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace Logic.DTOs
 {
-    public struct GenderTypeDTO
+    public class GenderTypeDTO
     {
         public int GenderTypeId { get; set; }
         public string GenderTypeName { get; set; }
+
+        public GenderTypeDTO() { }
+
+        public GenderTypeDTO(int genderTypeId, string genderTypeName)
+        {
+            GenderTypeId = genderTypeId;
+            GenderTypeName = genderTypeName;
+        }
     }
 }

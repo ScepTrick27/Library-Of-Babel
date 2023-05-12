@@ -10,5 +10,7 @@ namespace Logic.DTOs
     {
         public UserDTO UserDTO { get; set; }
         public BookDTO BookDTO { get; set; }
+
+        public FavouriteBookDTO() { }
     }
 }

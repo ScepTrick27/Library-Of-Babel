@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Logic.Classes;
 using Logic.DTOs;
+using Logic.Exceptions;
 using Logic.Interfaces;
 
 namespace Logic.Managers
@@ -25,7 +26,15 @@ namespace Logic.Managers
 
         public User GetUserByAccount(string email, string password)
         {
-            return new User(userDB.GetUserByAccount(email, password));
+            try
+            {
+                return new User(userDB.GetUserByAccount(email, password));
+            }
+            catch (UserException e)
+            {
+
+                throw new UserException("Error occurred while getting a user by account.", e);
+            }
         }
 
         public User GetUserByID(int id)
