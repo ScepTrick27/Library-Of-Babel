@@ -7,16 +7,41 @@
 }
 
 <body>
-    <h1 style="color:white">Welcome to the Library Of Babel</h1>
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <a href="/LogIn"><button style="--clr:#39FF14"><span>Log In</span><i></i></button></a>
-        <a href="/SignUpPage"><button style="--clr:#FF44CC"><span>Sign Up</span><i></i></button></a>
-        <a href="/BookPage"><button style="--clr:#0FF0FC"><span>See all books</span><i></i></button></a>
-    }
-    else
-    {
-        <a href="/BookPage"><button style="--clr:#0FF0FC"><span>See all books</span><i></i></button></a>
-        <a href="AccountInformationPage"><button style="--clr:#8A2BE2"><span>Account Information</span><i></i></button></a>
-    }
+    <div class="header">
+        <a class="logo">Welcome to the Library Of Babel</a>
+        <div class="header-right">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a href="/LogIn">Log In</a>
+                <a href="/SignUpPage">Sign Up</a>
+            }
+            else
+            {
+                <a href="/FavouriteBookPage">See your favourite books</a>
+                <a href="/RecommendedPage?name=ByGenre">See recommended books</a>
+                <a href="/RecommendedPage?name=ByRating">See top rated books</a>
+                <a href="AccountInformationPage">Account Information</a>
+            }
+        </div>
+    </div>
+
+    <div class="parent">
+        @foreach (Book book in Model.books)
+        {
+            <form method="post">
+                <div class="div1">
+                    <div class="book-image">
+                        <button type="submit" class="framed"><img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" /></button>
+                    </div>
+                    <div class="book-title">
+                        <span>@book.BookTitle</span>
+                    </div>
+                    <div class="add-to-favorites">
+                        <input asp-for="bookObject.BookId" type="hidden" value="@book.BookId " />
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+    </div>
 </body>

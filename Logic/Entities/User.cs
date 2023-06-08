@@ -13,7 +13,8 @@ namespace Logic.Classes
 
         public string Description { get => description; set => description = value; }
 
-        public User(string email, string password, string firstName, string lastName, GenderType genderType, DateTime dateOfBirth, string city, string country, string description) : base(email, password, firstName, lastName, genderType, dateOfBirth, city, country)
+        public User(string email, string password, string firstName, string lastName, GenderType genderType, DateTime dateOfBirth, 
+            string city, string country, string description) : base(email, password, firstName, lastName, genderType, dateOfBirth, city, country)
         {
             this.description = description;
         }

@@ -1,22 +1,21 @@
-﻿using DataLogic.DBs;
+using DataLogic.DBs;
+using Logic.DTOs;
 using Logic.Interfaces;
 using Logic.Managers;
 using Logic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Logic.DTOs;
-using Logic.Classes;
-using Microsoft.AspNetCore.Identity;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library_Of_Babel_Web_Application.Pages
 {
-    public class IndexModel : PageModel
+    public class RecommendedPageModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly BookManager _bookManager;
 
         private readonly UserManager _userManager;
 
+        private readonly RecommendationManager _recommendationManager;
         [BindProperty]
         public BookDTO bookObject { get; set; }
 
@@ -25,15 +24,17 @@ namespace Library_Of_Babel_Web_Application.Pages
         [BindProperty]
         public UserDTO UserObject { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, BookManager bookManager, UserManager userManager)
+        public string name;
+
+        public RecommendedPageModel(BookManager bookManager, UserManager userManager, RecommendationManager recommendationManager)
         {
-            _logger = logger;
             _bookManager = bookManager;
             _userManager = userManager;
+            _recommendationManager = recommendationManager;
         }
-
         public void OnGet()
         {
+            name = Request.Query["name"];
             if (User.Identity.IsAuthenticated)
             {
                 string? id = User?.FindFirst("id")?.Value;
@@ -42,7 +43,9 @@ namespace Library_Of_Babel_Web_Application.Pages
                 {
                     UserObject = _userManager.GetUserByID(Convert.ToInt32(id)).UserToUserDTO();
                 }
+                recommendedBooks = _recommendationManager.GetRecommendedBooks(name, books.ToList(), UserObject.PersonId);
             }
+
         }
 
         public IActionResult OnPost()
@@ -56,11 +59,6 @@ namespace Library_Of_Babel_Web_Application.Pages
             {
                 return Page();
             }
-        }
-
-        public IActionResult RecommendedPage()
-        {
-            return RedirectToPage("/RecommendedPage");
         }
 
         public IEnumerable<Book> books => _bookManager.GetAllBooks();

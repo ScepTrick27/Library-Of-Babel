@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Logic.Interfaces;
+using DataLogic.DBs;
+using Logic.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.Cookie.IsEssential = true;
         options.LoginPath = new PathString("/LogIn");
+        options.LogoutPath = new PathString("/Index");
     }
 );
 
@@ -30,6 +34,22 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+
+builder.Services.AddSingleton<IUserDB, UserDB>();
+builder.Services.AddSingleton<IBookDB, BookDB>();
+builder.Services.AddSingleton<IFavouriteBookDB, FavouriteBookDB>();
+builder.Services.AddSingleton<IGenderTypeDB, GenderTypeDB>();
+builder.Services.AddSingleton<IGenreDB, GenreDB>();
+builder.Services.AddSingleton<IReviewDB, ReviewDB>();
+
+builder.Services.AddScoped<UserManager>();
+builder.Services.AddScoped<BookManager>();
+builder.Services.AddScoped<FavouriteBookManager>();
+builder.Services.AddScoped<GenderTypeManager>();
+builder.Services.AddScoped<GenreManager>();
+builder.Services.AddScoped<ReviewManager>();
+builder.Services.AddScoped<RecommendationManager>();
 
 var app = builder.Build();
 

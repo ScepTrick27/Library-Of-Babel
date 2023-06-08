@@ -19,7 +19,7 @@ namespace DataLogic.DBs
 
                 using (SqlConnection conn = CreateConnection())
                 {
-                    string sql = "SELECT * FROM individual_genre";
+                    string sql = "SELECT * FROM genre";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     conn.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -52,7 +52,7 @@ namespace DataLogic.DBs
             {
                 using (SqlConnection conn = CreateConnection())
                 {
-                    const string sql = "SELECT * FROM individual_genre WHERE genre_id = @genre_id";
+                    const string sql = "SELECT * FROM genre WHERE genre_id = @genre_id";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@genre_id", id);

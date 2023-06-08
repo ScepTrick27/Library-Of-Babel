@@ -18,7 +18,7 @@ namespace DataLogic.DBs
             {
                 using (SqlConnection conn = CreateConnection())
                 {
-                    const string sql = "INSERT INTO individual_favorite_book ([person_id], [book_id])" +
+                    const string sql = "INSERT INTO favorite_book ([person_id], [book_id])" +
                     "VALUES (@person_id, @book_id)";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
@@ -44,9 +44,9 @@ namespace DataLogic.DBs
 
                 using (SqlConnection conn = CreateConnection())
                 {
-                    string sql = "SELECT * FROM individual_favorite_book fb INNER JOIN individual_customer c ON fb.person_id = c.person_id INNER JOIN" +
-                        " individual_person p ON c.person_id = p.person_id INNER JOIN individual_gender g ON p.gender_id = g.gender_id" +
-                        " INNER JOIN individual_book b ON fb.book_id = b.book_id WHERE fb.person_id = @id";
+                    string sql = "SELECT * FROM favorite_book fb INNER JOIN customer c ON fb.person_id = c.person_id INNER JOIN" +
+                        " person p ON c.person_id = p.person_id INNER JOIN gender g ON p.gender_id = g.gender_id" +
+                        " INNER JOIN book b ON fb.book_id = b.book_id INNER JOIN genre ig ON b.genre_id = ig.genre_id WHERE fb.person_id = @id";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@id", id);
@@ -65,7 +65,12 @@ namespace DataLogic.DBs
                                 BookDescription = dr["book_description"].ToString(),
                                 BookAuthor = dr["book_author"].ToString(),
                                 BookPublishDate = Convert.ToDateTime(dr["book_publish_date"]),
-                                BookImage = (byte[])dr["book_photo"]
+                                BookImage = (byte[])dr["book_photo"],
+                                Genre = new GenreDTO
+                                {
+                                    GenreId = Convert.ToInt32(dr["genre_id"]),
+                                    GenreName = dr["genre_name"].ToString(),
+                                }
                             },
                             UserDTO = new UserDTO
                             {

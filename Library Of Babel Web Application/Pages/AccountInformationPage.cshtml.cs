@@ -6,6 +6,8 @@ using Logic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Library_Of_Babel_Web_Application.Pages
 {
@@ -18,16 +20,16 @@ namespace Library_Of_Babel_Web_Application.Pages
         public GenderTypeDTO GenderTypeObject { get; set; }
         [BindProperty]
         public int GenderTypeId { get; set; }
-        private readonly UserManager userManager;
-        private readonly IUserDB userDB = new UserDB();
-        private readonly GenderTypeManager genderTypeManager;
-        private readonly IGenderTypeDB genderTypeDB = new GenderTypeDB();
+
+        private readonly UserManager _userManager;
+
+        private readonly GenderTypeManager _genderTypeManager;
 
 
-        public AccountInformationPageModel()
+        public AccountInformationPageModel(UserManager userManager, GenderTypeManager genderTypeManager)
         {
-            userManager = new UserManager(userDB);
-            genderTypeManager = new GenderTypeManager(genderTypeDB);
+            _userManager = userManager;
+            _genderTypeManager = genderTypeManager;
         }
 
         public void OnGet()
@@ -36,10 +38,17 @@ namespace Library_Of_Babel_Web_Application.Pages
 
             if (id != null)
             {
-                UserObject = userManager.GetUserByID(Convert.ToInt32(id)).UserToUserDTO();
+                UserObject = _userManager.GetUserByID(Convert.ToInt32(id)).UserToUserDTO();
             }
         }
 
-        public IEnumerable<GenderType> genders => genderTypeManager.GetAllGenders();
+        public async Task<IActionResult> OnPost()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToPage("Index");
+        }
+
+        public IEnumerable<GenderType> genders => _genderTypeManager.GetAllGenders();
     }
 }

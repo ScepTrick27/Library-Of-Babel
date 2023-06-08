@@ -38,6 +38,23 @@ namespace Logic.Entities
             return genreName;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Genre other = (Genre)obj;
+            return GenreId == other.GenreId && GenreName == other.GenreName;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+            hash = hash * 23 + GenreId.GetHashCode();
+            hash = hash * 23 + GenreName.GetHashCode();
+            return hash;
+        }
+
         public int GenreId { get => genreId; set => genreId = value; }
         public string GenreName { get => genreName; set => genreName = value; }
     }

@@ -14,6 +14,7 @@ namespace Logic.DTOs
         public string BookAuthor { get; set; }
         public DateTime BookPublishDate { get; set; }
         public byte[] BookImage { get; set; }
+        public GenreDTO Genre { get; set; }
 
         public BookDTO() { }
     }

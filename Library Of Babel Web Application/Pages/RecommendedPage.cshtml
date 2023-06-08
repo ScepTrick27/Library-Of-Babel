@@ -1,0 +1,54 @@
+﻿@page
+@model Library_Of_Babel_Web_Application.Pages.RecommendedPageModel
+@using Logic;
+@{
+    <link href="~/css/IndexStyle.css" rel="stylesheet" type="text/css" />
+    Layout = "";
+}
+
+<div class="header">
+    @if (Model.name == "ByGenre")
+    {
+        <a class="logo">Here are your personal recommendations</a>
+        <div class="header-right">
+            <a href="Index">Home Page</a>
+            <a href="/RecommendedPage?name=ByRating">See top rated books</a>
+            <a href="AccountInformationPage">Account Information</a>
+        </div>
+    }
+    else if (Model.name == "ByRating")
+    {
+        <a class="logo">Here are the top rated books</a>
+        <div class="header-right">
+            <a href="Index">Home Page</a>
+            <a href="/RecommendedPage?name=ByGenre">See recommended books</a>
+            <a href="AccountInformationPage">Account Information</a>
+        </div>
+    }
+</div>
+
+<div class="parent">
+    @if (Model.recommendedBooks.Count > 0)
+    {
+        @foreach (Book book in Model.recommendedBooks)
+        {
+            <form method="post">
+                <div class="div1">
+                    <div class="book-image">
+                        <button type="submit" class="framed"><img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(book.BookImage)" /></button>
+                    </div>
+                    <div class="book-title">
+                        <span>@book.BookTitle</span>
+                    </div>
+                    <div class="add-to-favorites">
+                        <input asp-for="bookObject.BookId" type="hidden" value="@book.BookId " />
+                    </div>
+                </div>
+            </form>
+        }
+    }
+    else
+    {
+      <h1>Please add books to your favourite list to start seeing recommended books</h1>
+    }
+</div>

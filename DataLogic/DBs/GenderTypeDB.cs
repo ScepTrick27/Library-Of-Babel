@@ -19,7 +19,7 @@ namespace DataLogic.DBs
 
                 using (SqlConnection conn = CreateConnection())
                 {
-                    string sql = "SELECT * FROM individual_gender";
+                    string sql = "SELECT * FROM gender";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     conn.Open();
                     SqlDataReader dr = cmd.ExecuteReader();

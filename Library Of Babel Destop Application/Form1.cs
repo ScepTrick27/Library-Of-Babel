@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.IO;
 using Logic.Managers;
 using Logic.Interfaces;
+using Logic.Entities;
 using Logic;
 using DataLogic.DBs;
 
@@ -21,12 +22,22 @@ namespace Library_Of_Babel_Destop_Application
     {
         private readonly BookManager bookManager;
         private readonly IBookDB bookDB = new BookDB();
+
+        private readonly GenreManager genreManager;
+        private readonly IGenreDB genreDB = new GenreDB();
         private byte[] image;
+        private bool canBeAdded = true;
         public Form1()
         {
             InitializeComponent();
 
             bookManager = new BookManager(bookDB);
+            genreManager = new GenreManager(genreDB);
+
+            foreach (Genre genre in genreManager.GetAllGenres())
+            {
+                cmbGenres.Items.Add(genre);
+            }
 
             foreach (Book b in bookManager.GetAllBooks())
             {
@@ -46,7 +57,7 @@ namespace Library_Of_Babel_Destop_Application
                 fs.CopyTo(memoryStream);
                 image = memoryStream.ToArray();
                 lblPhotoStatus.Text = "Photo Added";
-                lblPhotoStatus.ForeColor= Color.Green;
+                lblPhotoStatus.ForeColor = Color.Green;
                 MemoryStream stmBLOBData = new MemoryStream(image);
                 pictureBox1.Image = Image.FromStream(stmBLOBData);
             }
@@ -55,23 +66,43 @@ namespace Library_Of_Babel_Destop_Application
 
         private void btnAddBook_Click(object sender, EventArgs e)
         {
+
             if (!String.IsNullOrWhiteSpace(tbxTitle.Text) && !String.IsNullOrWhiteSpace(tbxDescription.Text) && !String.IsNullOrWhiteSpace(tbxAuthor.Text) && image != null)
             {
-                bookManager.AddBook(new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, image));
+                //bookManager.AddBook(new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, image));
+                Genre selectedGenre = (Genre)cmbGenres.SelectedItem; 
+                Book createdBook = new Book(tbxTitle.Text, tbxDescription.Text, tbxAuthor.Text, dtpPublishDate.Value, image, selectedGenre);
 
-                tbxTitle.Clear();
-                tbxAuthor.Clear();
-                tbxDescription.Clear();
-                lblPhotoStatus.Text = "Please upload a photo";
-                lblPhotoStatus.ForeColor= Color.Red;
-                dtpPublishDate.Value = DateTime.Now;
-                pictureBox1.Image = null;
-
-                lbBooks.Items.Clear();
-
-                foreach (Book b in bookManager.GetAllBooks())
+                foreach (Book book in bookManager.GetAllBooks())
                 {
-                    lbBooks.Items.Add(b);
+                    if (book.BookTitle == createdBook.BookTitle)
+                    {
+                        canBeAdded = false;
+                        MessageBox.Show("A book with this title already exists!");
+                    }
+                }
+                if (canBeAdded == true)
+                {
+                    var results = bookManager.TryAddBook(createdBook);
+                    if (results.Count() == 0)
+                    {
+                        lbBooks.Items.Add(createdBook);
+
+                        tbxTitle.Clear();
+                        tbxAuthor.Clear();
+                        tbxDescription.Clear();
+                        lblPhotoStatus.Text = "Please upload a photo";
+                        lblPhotoStatus.ForeColor = Color.Red;
+                        dtpPublishDate.Value = DateTime.Now;
+                        pictureBox1.Image = null;
+                    }
+                    else
+                    {
+                        foreach (var result in results)
+                        {
+                            MessageBox.Show(result.ToString());
+                        }
+                    }
                 }
 
             }

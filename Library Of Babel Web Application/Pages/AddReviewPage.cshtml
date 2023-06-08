@@ -1,0 +1,23 @@
+﻿@page
+@model Library_Of_Babel_Web_Application.Pages.AddReviewPageModel
+@{
+    <link href="~/css/BookPageStyle.css" rel="stylesheet" type="text/css" />
+    Layout = "";
+}
+<div class="header">
+    <a href="#default" class="logo">@Model.BookObject.BookTitle</a>
+    <div class="header-right">
+        <a href="/Index">Home Page</a>
+        <a href="/RecommendedPage?name=ByGenre">See recommended books</a>
+        <a href="/RecommendedPage?name=ByRating">See top rated books</a>
+        <a href="AccountInformationPage">Account Information</a>
+    </div>
+</div>
+
+<form method="post">
+    <div class="lower-container">
+        <input onkeydown="return false" type="number" required asp-for="ReviewObject.Rating" min="1" max="5" />
+        <textarea class="form-input" rows="4" cols="50" style="height:auto" asp-for="ReviewObject.ReviewName" placeholder="Your Description"></textarea>
+        <input type="submit" id="quantity" value="Add Review" class="buy-button">
+    </div>
+</form>

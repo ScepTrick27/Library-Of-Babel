@@ -9,7 +9,6 @@
 
     <div class="form-header">
         <h1>Create Account</h1>
-        <div asp-validation-summary="All"></div>
     </div>
 
     <div class="form-body">
@@ -41,7 +40,7 @@
             </div>
 
             <div class="form-group right">
-                <label class="label-title" asp-for="UserObject.GenderTypeDTO">Gender</label>
+                <label class="label-title" asp-for="UserObject.GenderTypeDTO.GenderTypeId">Gender</label>
                 <span asp-validation-for="UserObject.GenderTypeDTO"></span>
                 <select class="form-input" id="level" asp-for="GenderTypeId" class="form-control form-select">
                     @foreach (GenderType g in Model.genders)

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.DTOs
+namespace Logic.Interfaces
 {
-    public class GenreDTO
+    public interface IRecommendation
     {
-        public int GenreId { get; set; }
-        public string GenreName { get; set; }
+        public List<Book> GetRecommendedBooks(List<Book> books);
     }
 }

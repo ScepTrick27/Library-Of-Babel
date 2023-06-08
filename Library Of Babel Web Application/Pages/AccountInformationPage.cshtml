@@ -5,7 +5,7 @@
     <link href="~/css/SignUpStyle.css" rel="stylesheet" type="text/css" />
     Layout = "";
 }
-<form class="signup-form">
+<form class="signup-form" method="post">
 
     <div class="form-header">
         <h1>Account Information</h1>
@@ -16,19 +16,19 @@
             <div class="form-group left">
                 <label class="label-title" asp-for="UserObject.FirstName">First Name</label>
                 <span asp-validation-for="UserObject.FirstName"></span>
-                <input type="text" class="form-input" id="firstname" asp-for="UserObject.FirstName"  required="required" />
+                <input type="text" readonly class="form-input" id="firstname" asp-for="UserObject.FirstName"  required="required" />
             </div>
             <div class="form-group right">
                 <label class="label-title" asp-for="UserObject.LastName">Last Name</label>
                 <span asp-validation-for="UserObject.LastName"></span>
-                <input type="text" id="lastname" class="form-input" asp-for="UserObject.LastName"  required="required" />
+                <input type="text" readonly id="lastname" class="form-input" asp-for="UserObject.LastName"  required="required" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="label-title" asp-for="UserObject.Email">Email</label>
             <span asp-validation-for="UserObject.Email"></span>
-            <input type="email" id="email" class="form-input" asp-for="UserObject.Email"  required="required" />
+            <input type="email" readonly id="email" class="form-input" asp-for="UserObject.Email"  required="required" />
         </div>
 
         <div class="horizontal-group">
@@ -36,42 +36,44 @@
             <div class="form-group left">
                 <label class="label-title" asp-for="UserObject.Password">Password</label>
                 <span asp-validation-for="UserObject.Password"></span>
-                <input type="password" id="password" class="form-input" asp-for="UserObject.Password" required="required" />
+                <input type="password" readonly id="password" class="form-input" asp-for="UserObject.Password" required="required" />
             </div>
 
             <div class="form-group right">
                 <label class="label-title" asp-for="UserObject.GenderTypeDTO">Gender</label>
                 <span asp-validation-for="UserObject.GenderTypeDTO"></span>
-                <input type="text" id="lastname" class="form-input" asp-for="UserObject.GenderTypeDTO.GenderTypeName" required="required" />
+                <input type="text" readonly id="lastname" class="form-input" asp-for="UserObject.GenderTypeDTO.GenderTypeName" required="required" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="label-title" asp-for="UserObject.Description">Description</label>
             <span asp-validation-for="UserObject.Description"></span>
-            <textarea class="form-input" rows="4" cols="50" style="height:auto" asp-for="UserObject.Description" required="required"></textarea>
+            <textarea class="form-input" readonly rows="4" cols="50" style="height:auto" asp-for="UserObject.Description" required="required"></textarea>
         </div>
 
         <div class="form-group">
             <label class="label-title" asp-for="UserObject.DateOfBirth">Date Of Birth</label>
             <span asp-validation-for="UserObject.DateOfBirth"></span>
-            <input type="date" id="email" class="form-input" asp-for="UserObject.DateOfBirth" required="required" />
+            <input type="date" id="email" readonly class="form-input" asp-for="UserObject.DateOfBirth" required="required" />
         </div>
 
         <div class="horizontal-group">
             <div class="form-group left">
                 <label class="label-title" asp-for="UserObject.City">City</label>
                 <span asp-validation-for="UserObject.City"></span>
-                <input type="text" class="form-input" id="firstname" asp-for="UserObject.City" required="required" />
+                <input type="text" readonly class="form-input" id="firstname" asp-for="UserObject.City" required="required" />
             </div>
             <div class="form-group right">
                 <label class="label-title" asp-for="UserObject.Country">Country</label>
                 <span asp-validation-for="UserObject.Country"></span>
-                <input type="text" id="lastname" class="form-input" asp-for="UserObject.Country" required="required" />
+                <input type="text" readonly id="lastname" class="form-input" asp-for="UserObject.Country" required="required" />
             </div>
         </div>
     </div>
 
     <div class="form-footer">
+        <a href="Index">Home Page</a>
+        <button type="submit" class="btn btn-primary">Log Out</button>
     </div>
 </form>

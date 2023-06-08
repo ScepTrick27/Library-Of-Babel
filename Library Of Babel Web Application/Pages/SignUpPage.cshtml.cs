@@ -20,15 +20,13 @@ namespace Library_Of_Babel_Web_Application.Pages
         [BindProperty]
         public int GenderTypeId { get; set; }
 
-        private readonly UserManager userManager;
-        private readonly GenderTypeManager genderTypeManager;
-        private readonly IUserDB userDB = new UserDB();
-        private readonly IGenderTypeDB genderTypeDB = new GenderTypeDB();
+        private readonly UserManager _userManager;
+        private readonly GenderTypeManager _genderTypeManager;
 
-        public SignUpPageModel()
+        public SignUpPageModel(UserManager userManager, GenderTypeManager genderTypeManager)
         {
-            userManager = new UserManager(userDB);
-            genderTypeManager = new GenderTypeManager(genderTypeDB);
+            _userManager = userManager;
+            _genderTypeManager = genderTypeManager;
 
         }
 
@@ -56,13 +54,13 @@ namespace Library_Of_Babel_Web_Application.Pages
                 return Page();
             }
 
-            userManager.AddUser(new User(UserObject));
+            _userManager.AddUser(new User(UserObject));
 
                 return RedirectToPage("/LogIn");
             }
 
 
 
-        public IEnumerable<GenderType> genders => genderTypeManager.GetAllGenders();
+        public IEnumerable<GenderType> genders => _genderTypeManager.GetAllGenders();
     }
 }

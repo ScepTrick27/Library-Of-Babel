@@ -3,33 +3,65 @@
 @using Logic.Entities;
 @using Logic.DTOs;
 @{
+        <link href="~/css/BookPageStyle.css" rel="stylesheet" type="text/css"/>
+    Layout = "";
 }
-<form method="post">
-    <div class=" book">
-        <img class="framed" src="data:image/jpg;base64,@System.Convert.ToBase64String(@Model.BookObject.BookImage)" />
-        <h1>@Model.BookObject.BookTitle</h1>
-        <p>@Model.BookObject.BookDescription</p>
 
-        <p>What genre is this book?</p>
+<div class="header">
+    <a href="#default" class="logo">@Model.BookObject.BookTitle</a>
+    <div class="header-right">
+        <a href="/Index">Home Page</a>
+            <a href="/RecommendedPage?name=ByGenre">See recommended books</a>
+            <a href="/RecommendedPage?name=ByRating">See top rated books</a>
+            <a href="AccountInformationPage">Account Information</a>
+    </div>
+</div>
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            @foreach (FavouriteBook fb in Model.favouriteBooks)
-            {
-                if (Model.BookObject.BookId != fb.Book.BookId)
+<form asp-page-handler="OnPostFavourite" method="post">
+    <div class="container">
+        <div class="upper-container">
+            <div class="image-container">
+                <img src="data:image/jpg;base64,@System.Convert.ToBase64String(@Model.BookObject.BookImage)" />
+            </div>
+            <div class="data-container">
+                <h2>Title: @Model.BookObject.BookTitle</h2>
+                <h3>Description: @Model.BookObject.BookDescription</h3>
+                <h2>Genre: @Model.BookObject.Genre.GenreName</h2>
+                <h3>Author: @Model.BookObject.BookAuthor</h3>
+                <h3>Publish Date: @Model.BookObject.BookPublishDate</h3>
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <div>
-                        <select class="form-input" id="level" asp-for="GenreId" class="form-control form-select">
-                            <option disabled selected> -- select an option -- </option>
-                            @foreach (Genre g in Model.genres)
-                            {
-                                <option value="@g.GenreId">@g.GenreName</option>
-                            }
-                        </select>
-                    </div>
-                    <input type="submit" value="Add genre" />
+                    if (!Model.IsBookInside)
+                    {
+                        <input type="submit" id="quantity" value="Add To Favourites" class="buy-button">
+                    }
                 }
-            }
+            </div>
+        </div>
+     </div>
+</form>
+@if (!Model.ReviewdBook)
+{
+    <a href="/AddReviewPage"><button class="button-3">Add a review</button></a>
+}
+
+<div class="container">
+    <div class="lower-container">
+
+        @foreach (Review review in Model.reviews)
+        {
+            <div class="review-card">
+                <h3>Username: @review.User.FirstName:</h3>
+                <h3>@review.ReviewName</h3>
+                <h4>Rating: @review.Rating/5</h4>
+            </div>
+
         }
     </div>
-</form>
+</div>
+
+
+
+
+
+

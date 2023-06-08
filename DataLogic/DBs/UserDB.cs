@@ -19,7 +19,7 @@ namespace DataLogic.DBs
                 using (SqlConnection conn = CreateConnection())
                 {
                     const string sql = @"declare @password_salt varchar(max) = crypt_gen_random(16)
-                        INSERT INTO individual_person ([email], [password], [password_salt], [first_name], [last_name], [gender_id], [date_of_birth], [city], [country])" +
+                        INSERT INTO person ([email], [password], [password_salt], [first_name], [last_name], [gender_id], [date_of_birth], [city], [country])" +
 "VALUES (@email, hashbytes('SHA2_256', convert(varchar(max), concat(convert(varchar(max), @password), @password_salt))), @password_salt, @first_name, @last_name, @gender_id, @date_of_birth, @city, @country); SELECT SCOPE_IDENTITY()";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
@@ -37,7 +37,7 @@ namespace DataLogic.DBs
                     conn.Open();
                     int insertedId = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    const string query = "INSERT INTO individual_customer ([person_id], [user_description])" +
+                    const string query = "INSERT INTO customer ([person_id], [user_description])" +
                         "VALUES (@person_id, @user_description)";
 
                     SqlCommand cmd1 = new SqlCommand(query, conn);
@@ -59,7 +59,7 @@ namespace DataLogic.DBs
             {
                 using (SqlConnection conn = CreateConnection())
                 {
-                    string sql = "SELECT * FROM individual_person ip INNER JOIN individual_customer ic ON ip.person_id = ic.person_id INNER JOIN individual_gender ig ON ip.gender_id = ig.gender_id WHERE email = @email AND password = hashbytes('SHA2_256', convert(varchar(max), concat(convert(varchar(max), @password), password_salt)))";
+                    string sql = "SELECT * FROM person ip INNER JOIN customer ic ON ip.person_id = ic.person_id INNER JOIN gender ig ON ip.gender_id = ig.gender_id WHERE email = @email AND password = hashbytes('SHA2_256', convert(varchar(max), concat(convert(varchar(max), @password), password_salt)))";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password", password);
@@ -98,7 +98,7 @@ namespace DataLogic.DBs
             {
                 using (SqlConnection conn = CreateConnection())
                 {
-                    string sql = "SELECT * FROM individual_person ip INNER JOIN individual_customer ic ON ip.person_id = ic.person_id INNER JOIN individual_gender ig ON ip.gender_id = ig.gender_id WHERE ip.person_id = @person_id";
+                    string sql = "SELECT * FROM person ip INNER JOIN customer ic ON ip.person_id = ic.person_id INNER JOIN gender ig ON ip.gender_id = ig.gender_id WHERE ip.person_id = @person_id";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@person_id", id);
                     conn.Open();

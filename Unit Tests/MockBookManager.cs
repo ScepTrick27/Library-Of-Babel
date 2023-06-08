@@ -8,6 +8,9 @@ using Logic.Interfaces;
 using UnitTests;
 using Logic.Managers;
 using Logic;
+using Logic.Entities;
+using DataLogic.DBs;
+using Logic.DTOs;
 
 namespace Unit_Tests
 {
@@ -22,7 +25,7 @@ namespace Unit_Tests
             IBookDB bookDB = new MockBookDB();
             BookManager bookManager = new BookManager(bookDB);
 
-            if (bookManager.AddBook(new Book("testTitle", "testDescription", "testAuthor", DateTime.Now, testImage)) == true)
+            if (bookManager.AddBook(new Book("testTitle", "testDescription", "testAuthor", DateTime.Now, testImage, new Logic.Entities.Genre(1, "female"))) == true)
             {
                 success = true;
             }
@@ -34,7 +37,7 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public void GetAllBooks()
+        public void VeifyBookList()
         {
             IBookDB bookDB = new MockBookDB();
             BookManager bookManager = new BookManager(bookDB);
@@ -50,5 +53,46 @@ namespace Unit_Tests
             Assert.IsTrue(success);
         }
 
+        public List<Book> GetAllBooks()
+        {
+            IBookDB bookDB = new MockBookDB();
+            BookManager bookManager = new BookManager(bookDB);
+            List<Book> books = new List<Book>();
+
+            foreach (BookDTO b in bookDB.GetAllBooks())
+            {
+                books.Add(new Book(b));
+            }
+
+            return books;
+        }
+
+        [TestMethod]
+        public void RecommendBooksByGenre_IfTheUserAddedBookToFavourites()
+        {
+            IBookDB bookDB = new MockBookDB();
+            RecommendationManager recommendationManager = new RecommendationManager(bookDB);
+            List<Book> books = GetAllBooks();
+
+            var output = recommendationManager.GetRecommendedBooks("ByGenre", books, 1);
+
+            Assert.AreEqual(2, output.Count);
+            CollectionAssert.Contains(output, books[0]);
+            CollectionAssert.Contains(output, books[1]);
+        }
+
+        [TestMethod]
+        public void RecommendBookByRating_IfThereAreRatings()
+        {
+            IBookDB bookDB = new MockBookDB();
+            RecommendationManager recommendationManager = new RecommendationManager(bookDB);
+            List<Book> books = GetAllBooks();
+
+            var output = recommendationManager.GetRecommendedBooks("ByRating", books, 1);
+
+            Assert.AreEqual(3, output.Count);
+            Assert.AreEqual(books[0], output[0]);
+            Assert.AreEqual(books[1], output[1]);
+        }
     }
 }

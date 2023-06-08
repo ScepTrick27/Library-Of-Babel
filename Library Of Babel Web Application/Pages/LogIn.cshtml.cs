@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using System.Net;
 using Logic.Exceptions;
+using Microsoft.AspNetCore.Components;
 
 namespace Library_Of_Babel_Web_Application.Pages
 {
@@ -20,11 +21,10 @@ namespace Library_Of_Babel_Web_Application.Pages
         public string Message { get; set; }
 
         private readonly UserManager userManager;
-        private readonly IUserDB userDB = new UserDB();
 
-        public LogInModel()
+        public LogInModel(UserManager userManager)
         {
-            userManager = new UserManager(userDB);
+            this.userManager = userManager;
         }
         public void OnGet()
         {
@@ -32,10 +32,11 @@ namespace Library_Of_Babel_Web_Application.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            UserObject = userManager.GetUserByAccount(UserObject.Email, UserObject.Password).UserToUserDTO();
-            if (UserObject.PersonId > -1)
+
+            try
             {
-                try
+                UserObject = userManager.GetUserByAccount(UserObject.Email, UserObject.Password).UserToUserDTO();
+                if (UserObject.PersonId > -1)
                 {
                     var claims = new List<Claim>
                     {
@@ -51,16 +52,16 @@ namespace Library_Of_Babel_Web_Application.Pages
 
                     return RedirectToPage("Index");
                 }
-                catch (UserException e)
+                else
                 {
                     this.Message = "Invalid credentials";
-                    ModelState.AddModelError("Invalid Credentials", e.Message);
                     return Page();
                 }
             }
-            else
+            catch (UserException e)
             {
                 this.Message = "Invalid credentials";
+                ModelState.AddModelError("Invalid Credentials", e.Message);
                 return Page();
             }
         }
